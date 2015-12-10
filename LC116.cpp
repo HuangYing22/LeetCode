@@ -27,10 +27,7 @@ public:
                 if(node->left != NULL) next.push(node->left);
                 if(node->right != NULL) next.push(node->right);
             
-                if(cur.empty()) {
-                    node->next == NULL;
-                    break;
-                }
+                if(cur.empty()) break;
                 node->next = cur.front();
             }
             if(!next.empty()) swap(cur,next);
