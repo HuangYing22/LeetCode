@@ -60,6 +60,8 @@ Loop:
 continue:这一轮什么也不做,直进下一轮
 break:直接出loop,不再循环
 
+vector<int> numsNew(20,100); <=20是大小, 所有element都是100
+
 Vector 用法
 class Solution {
 public:
