@@ -1,0 +1,30 @@
+Binary Search Tree (Vale of all the nodes left-subtree must be less or equal to root;right-subtree must be greater)
+Recursive left and right subtree must also be BST
+
+BST(keep Balanced to make the cost O(logn))
+Balanced: left height and right height diff <= 1
+Search O(logn) Worst case unbalanced tree(lined list like structure): O(n)
+Insert O(logn)
+Remove O(logn)
+
+Insert and Remove may cause BST to be unbalanced!!
+// Time Complexity O(n)
+// Convert Sorted Array to BST: T(n) = C + 2T(n/2) => T(n)正比于n
+// Merge Sort: T(n) = n + 2T(n/2) => T(n)正比于nlogn
+
+Tree Traversal的解法对比
+Recursive解法
+空间复杂度是O(h) h是tree的depth 
+balanced tree是O(logn)
+worst case unbalanced tree是O(n)
+时间复杂度O(n)
+
+但是Recursive的stack留出了整个function的空间,保存中间变量
+差很大的常数
+数据量远大于stack存的TreeNode
+Recuisive能不用就不用
+时间上也差得多
+
+Stack解法
+空间复杂度也是O(h)
+时间复杂度O(n)
