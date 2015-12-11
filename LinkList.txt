@@ -1,0 +1,181 @@
+链表
+单向链表-99%考单向链表
+双向链表
+
+vector最popular
+链表排第二位
+
+都有顺序
+都可以排序
+
+最后一个链表存的next pointer是NULL
+pointer 4 Byte
+费的%depends on 内容 int 4B
+
+地址不一定是挨着的
+vector地址一定挨着, index与地址是换算的
+
+linklist查第几个必须从头顺一边
+vector添加第一个,相当于把后面的shift一边,再塞进去 O(n)
+push_back暂时认为是O(1)
+
+linklist添加第一个,直接添一个新node,point到原来的第一个就行了
+
+linklist如果pointer link错了,内存里就会有很多垃圾 不能出错
+
+添加删除linklist方便
+大量查找vector方便
+
+相似性:都可以排序
+可以相互转化
+添加查找cost不同
+
+单向链表找前一个可能是time cost n^2
+vector能做到的linklist基本上都可以做到,time cost有差别
+
+LinkList最基本的两题
+Reverse Linked List
+Merge Two Sorted Linked List
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if((head == NULL) || ((*head).next == NULL)) return head;
+        return NULL; //c++一定要大写NULL, NULL就是0
+    }
+};
+
+
+//Input:[1] 给的都是value [1]是value,钥匙是空的
+//[1,2,3]表示1的钥匙指向2,2的钥匙指向3,3的钥匙是空的
+
+//面试的时候reverseList之类的题一般只改next,不要改node的value
+
+//LinkedList不能像vector一样 复制一份,做手脚,再copy
+//重做一份Linked List可能更麻烦
+
+//给了head之后先check head是不是NULL,是的话一般直接return NULL;
+
+//ListNode* head; 或者写成ListNode *head; =>表示head是一个ListNode type的object的地址 声明的时候*表示地址
+//ListNode node;表示node是一个ListNode这个class的object
+//cout<<node.val<<endl;
+//node = *head; //表示取head这个地址的对象
+//head = &node; //表示取node这个对象的地址
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if((head == NULL) || (head->next == NULL)) return head;
+        return NULL; //c++一定要大写NULL, NULL就是0
+    }
+};
+
+// 如果head是个指针,就写head->next (等效于(*head).next)
+// 如果node是个object,就写node.object
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if((head == NULL) || (head->next == NULL)) return head;
+        ListNode* ptr = head; //初始化
+        //while(ptr->next != NULL) { //最后一个node的next就是NULL,最后一个node不会被cout
+        while(ptr != NULL) {
+            cout << ptr->val << endl;
+            ptr = ptr->next;
+        }
+        return NULL; //c++一定要大写NULL, NULL就是0
+    }
+};
+
+// 读一个garbage可能是任何一个东西,可能碰巧对
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if((head == NULL) || (head->next == NULL)) return head;
+        
+        //两种方法声明一个新对象
+        /* 方法1-声明一个新object
+        //static declare静态声明
+        //+:不用手动释放内存
+        //-:出去了函数可能就不在了,会crash
+        ListNode newNode(100); //类似int a; {}之外看不到,系统释放了内存; 假如somehow 记住了它的地址,出了{}之后再看它的地址,就bug
+        
+        ListNode* p = head;
+        for(int i=0; i<3; i++) {
+            p = p->next;
+        }
+        //ListNode* pn = p->next;
+        //p->next = &newNode;
+        //newNode.next = pn;
+        
+        //Better way
+        //不用多声明一个新pointer
+        newNode.next = p->next;
+        p->next = &newNode;
+        */
+        
+        // 只能这么用
+        // 方法2-声明一个指向新的ListNode的object的pointer
+        //只要有new 就是动态声明
+        //dynamic declare动态声明 - 内存只能手动释放, 否则memory leak; 出了{}地址还是在,还是可以用; 出了函数还是在
+        ListNode* newNode = new ListNode(100);
+        ListNode* p = head;
+        for(int i=0; i<3; i++) {
+            p = p->next;
+        }
+        newNode->next = p->next;
+        p->next = newNode;
+        
+        
+        //Traverse Linklist 输出内容
+        ListNode* ptr = head;
+        //while(ptr->next != NULL) { //最后一个node的next就是NULL,最后一个node不会被cout
+        while(ptr != NULL) {
+            cout << ptr->val << endl;
+            ptr = ptr->next;
+        }
+        
+        
+        return NULL; //c++一定要大写NULL, NULL就是0
+    }
+    
+};
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if((head == NULL) || (head->next == NULL)) return NULL;
+        
+        ListNode* p = head;
+        while(p->next->next != NULL) {
+            p = p->next;
+        }
+        delete(p->next); //释放最后一个node内存 先delete再p->next = NULL
+        p->next = NULL;
+        
+        
+        //Traverse Linklist 输出内容
+        ListNode* ptr = head;
+        //while(ptr->next != NULL) { //最后一个node的next就是NULL,最后一个node不会被cout
+        while(ptr != NULL) {
+            cout << ptr->val << endl;
+            ptr = ptr->next;
+        }
+        
+        
+        return NULL; //c++一定要大写NULL, NULL就是0
+    }
+    
+};
+
+Too much “cout” for debugging also impacts run time, esp when test case is very long
+
+pre->next = ptr->next; 
+delete(ptr);
+//先用后删,或者用temp指代一下,否则risky
+//delete之后,如果别人没有改动它,可能还可以看, 但是万一别的地方改了它,就错了
+//这块内存是free了, 别人可以用了,不一定改了
+//万一别人改了它,再去看它就错了
+
+对于两个同样type的东西都可以swap(a,b)
