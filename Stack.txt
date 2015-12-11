@@ -1,0 +1,11 @@
+Stack
+pop()返回是void;
+top()返回是top的value;
+top() -= 5操作之后stack的top的value也被改了
+.size()的时间复杂度也是o(1), stack的类里有一个size的值,每次push进去
+
+for loop里都用i++
+其他地方都永远不要用++i
+
+把char(1Byte)赋值给int(4Byte)的时候,前3个Byte都是0
+bool type 也是1Byte
