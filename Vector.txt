@@ -1,0 +1,419 @@
+1. vector只能装同一种元素，elements can also be vector
+
+2. vect.push_back(); 从后面加
+
+3.xx.size()要提前拿出来
+int n = xx.size();
+1）主要是防止空vector （size是unsigned int， 32bit）-1的时候（for loop i的终止）变成很大的数
+2）提高效率， 一般不用每次call .size() function， 每次直接看n
+performance好一点点
+
+4. 习惯：
+1）+-=*/ 。。。前后留空格
+2）vector<int> v; vector和<int> 之间不留空格
+
+5. cout<<(int)v.size() - 1<<endl;	
+(int) 叫cast， 强行转换类型
+unsigned int - 1返回的还是unsigned int
+不要把不同类型放在一起运算
+
+vector<int> xx;
+1）有size, size可以变大小 xx.size()
+2）xx.push_back(i);
+3）xx[i]
+
+size最好在外面找好 赋值给int,  不要在里面找，防止出错 提高效率
+size() 这种函数的返回值默认是unsigned int, -1会溢出
+不同类型的数据不要一起算
+vector的用法
+size()
+push_back()往屁股后面加东西
+用vector[] 可以引用或修改任何一项
+
+一个function在main里调用之前先declare
+要么declare一个完整的函数--leetcode这么用
+要么declare一个头,加上;--project这么用
+
+sort(nums.begin(),nums.end()); 从小到大排序
+reverse(nums.begin(),nums.end()); 反过来顺序
+
+vector of vector可以一样大 也可以不一样大
+push vector into vector of vector, only make a copy, not refer to actual address
+
+Better practice: define i,j… iterators inside for()
+	for (int i; i<n; i++)
+Better practice:
+	add space after , ;
+	+-*/ == > < add space before and after
+
+Time exceed cases:
+big test case time exceed->algorithm bad
+small test case time exceed->
+	stuck in a loop
+		stuck in a for loop (for loop supposed to end in a limited times)
+		for condition is always true
+		
+Find Path解法
+一般把所有结果都暂时存在matrix里,否则变成指数时间
+
+Loop:
+continue:这一轮什么也不做,直进下一轮
+break:直接出loop,不再循环
+
+Vector 用法
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> a(5,1);
+        printVector(a);
+        a.push_back(3); //
+        printVector(a);
+        sort(a.begin(),a.end()); //一般不能作用于vector以外的类 （不是这样一个挨一个的，没法定义顺序），但是sort本身不属于vector这个类class
+        printVector(a);
+        reverse(a.begin(),a.end()); //
+        printVector(a);
+        a.erase(a.begin(),a.begin()+2); //
+        printVector(a);
+        a.erase(a.begin()); //
+        printVector(a);
+        //a.push_front(2);
+        a.insert(a.begin(),33); //
+        printVector2(a);
+        //clear all
+        cout<<"end"<<endl;
+        cout<<*a.end()<<endl;
+        //a.erase(a.begin(),a.end()); //a.end
+        a.clear(); //
+        printVector2(a);
+        
+        
+        //逻辑上a.end() points to the one after the real end, n not n-1
+        // begin -> [0]
+        // end -> [n] not [n-1]
+    }
+    
+    void printVector(vector<int> nums) {
+        int size = nums.size();
+        for (int i=0; i<size; i++) {
+            cout<<nums[i]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    void printVector2(vector<int> nums) {
+        vector<int>::iterator it;
+        for (it = nums.begin(); it != nums.end(); it ++) {
+            cout<< *it <<" ";
+        }
+        cout<<endl;
+    }
+};
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> a(5,1);
+        printVector(a);
+    
+        a.push_back(3); //
+        printVector(a);
+        sort(a.begin(),a.end()); //
+        printVector(a);
+        reverse(a.begin(),a.end()); //
+        printVector(a);
+        a.erase(a.begin(),a.begin()+2); //
+        printVector(a);
+        a.erase(a.begin()); //erase O(n) time complexity, 把后面的顺序移到前面了，begin()地址还是没有变化
+        printVector(a);
+        //a.push_front(2);
+        a.insert(a.begin(),33); //insert o(n) time complexity
+        printVector2(a);
+        //clear all
+        cout<<"end"<<endl;
+        //cout<<*(a.end()+3)<<endl;
+        //a.erase(a.begin(),a.end()+3); //a.end
+        //a.clear(); //
+        cout<<"begin+3 "<<*(a.begin()+3)<<endl;
+        printVector2(a);
+        vector<int>::iterator it = a.begin()+3; //始终指向begin的后的第3个位置，第3个位置东西变了，它也会变
+        //iterator是个指针
+        //：：作用域操作符 domain operator
+        //vector<int>和vector<long long>的iterator不一样，it++的时候移动的格子数目不同
+        a.erase(a.begin());
+        cout<<"begin+3 "<<*(a.begin()+3)<<endl; //a.end()+3 run time error会访问不对的位置
+        cout<<"ierator "<<*it<<endl; //*取内容 &取地址
+        
+        //a.end() points to the one after the real end, n not n-1
+        //访问a.end(),a.end()-1都是指向最后一个元素
+        
+        vector<int>::iterator it2 = a.begin();
+        //vector<int>::iterator it3 = it + it2; //iterator不能相加
+        //vector<int>::iterator it3 = it - it2; //iterator相减的结果其实是int type，不是vector<int>
+        //interator类似指针，但是不是指针
+        //cout<<"it3 "<<*it3<<endl;
+        cout<<"it3 "<<it-it2<<endl;
+
+        return nums;
+        //run time error是访问了无效的地址，或者地址里是无效的内容
+        
+        //没有return值的时候是run time error
+        //function开始的时候给返回值预留了一块内存空间，
+        //其它funcion call这个function的时候也访问了这一块内存
+        //但是function结束的时候看了这个内存，没有return语句的时候找到的是无效的内容
+    }
+    
+    //printVector首选这一种写法
+    void printVector(vector<int> nums) {
+        int size = nums.size();
+        for (int i=0; i<size; i++) { //算法常常可能用到size
+            cout<<nums[i]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    //对于vector来说两种print方式差不多，但是有其它的类型的时候iterator更有用
+    
+    void printVector2(vector<int> nums) {
+        vector<int>::iterator it;
+        for (it = nums.begin(); it != nums.end(); it ++) { //it++翻译为在vector上加一个格子，不是physically地址+1
+       
+        //vector<int>::iterator end = nums.end();
+        //for (it = nums.begin(); it != end; it ++) { //可以像size一样性能好一点点 但是一般不这么写，约定俗成
+        //而且一般在算法里没有需求再用到end了
+        
+        //for (vector<int>::iterator it = nums.begin(); it != nums.end(); it ++) { //太长了，这么写不太好
+        //for(auto it = nums.begin(); it != nums.end(); it ++) { 
+        //auto的it必须初始化，nums是vector<int>，所以it是vector<int>的iterator，不是vector<long long>的iterator;
+        //正规的code一般不用auto
+        //for(auto it = nums.begin(); it < nums.end(); it ++) { //一般不这么用，iterator比大小没有实际数学的意义
+            cout<< *it <<" ";
+        }
+        cout<<endl;
+    }
+};
+
+Sort
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        //排序一律是从小往大的，约定俗成
+        vector<int> a;
+
+        for(int i = 1; i < 11; i = i+2) {
+            a.push_back(i);
+        }
+        printVector(a);
+        reverse(a.begin(),a.end());
+        printVector(a);
+        
+        //sort a
+        int tmp;
+        int n = a.size();
+        
+        for(int i = 0; i < n; i++) {
+            for(int j = i + 1; j < n; j++) {
+                if(a[j] < a[i]) {
+                    tmp = a[j];
+                    a[j] = a[i];
+                    a[i] = tmp;
+                }
+            }
+        }
+        printVector(a);
+        
+        return nums;
+    }
+    
+    //printVector首选这一种写法
+    void printVector(vector<int> nums) {
+        int size = nums.size();
+        for (int i=0; i<size; i++) { //算法常常可能用到size
+            cout<<nums[i]<<" ";
+        }
+        cout<<endl;
+    }
+    
+    //对于vector来说两种print方式差不多，但是有其它的类型的时候iterator更有用
+    
+    void printVector2(vector<int> nums) {
+        vector<int>::iterator it;
+        for (it = nums.begin(); it != nums.end(); it ++) { //it++翻译为在vector上加一个格子，不是physically地址+1
+       
+        //vector<int>::iterator end = nums.end();
+        //for (it = nums.begin(); it != end; it ++) { //可以像size一样性能好一点点 但是一般不这么写，约定俗成
+        //而且一般在算法里没有需求再用到end了
+        
+        //for (vector<int>::iterator it = nums.begin(); it != nums.end(); it ++) { //太长了，这么写不太好
+        //for(auto it = nums.begin(); it != nums.end(); it ++) { 
+        //auto的it必须初始化，nums是vector<int>，所以it是vector<int>的iterator，不是vector<long long>的iterator;
+        //正规的code一般不用auto
+        //for(auto it = nums.begin(); it < nums.end(); it ++) { //一般不这么用，iterator比大小没有实际数学的意义
+            cout<< *it <<" ";
+        }
+        cout<<endl;
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        //排序一律是从小往大的，约定俗成
+        vector<int> a;
+
+        for(int i = 11; i > 1; i = i - 2) {
+            a.push_back(i);
+        }
+        for(int i = 12; i > 2; i = i - 2) {
+            a.push_back(i);
+        }
+        printVector(a);
+        //reverse(a.begin(),a.end());
+        //printVector(a);
+        
+        vector<int> b;
+        b.push_back(4);
+        b.push_back(1);
+        b.push_back(32);
+        b.push_back(5);
+        //printVector(b);
+        
+        //sort a - selection sort
+        /*
+        int tmp;
+        int n = a.size();
+        
+        for(int i = 0; i < n; i++) {
+            for(int j = i + 1; j < n; j++) {
+                if(a[j] < a[i]) {
+                    tmp = a[j];
+                    a[j] = a[i];
+                    a[i] = tmp;
+                }
+            }
+        }
+        */
+        
+        //sort a - merge sort
+        cout<<"merge sort:"<<endl;
+        //printVector(sortVector(b));
+        
+        //printVector(sortVector(a));
+        sortVector(a);
+        printVector(a);
+        
+        //int f = fac(10);
+        //cout<<"fac 10= "<<f<<endl;
+        return nums;
+    }
+    
+    //printVector首选这一种写法
+    void printVector(vector<int> nums) {
+        int size = nums.size();
+        for (int i=0; i<size; i++) { //算法常常可能用到size
+            cout<<nums[i]<<" ";
+        }
+        cout<<endl;
+    }
+
+
+//选中之后 shift+tab 可以修改很多行的缩进
+
+//vector input => vector output 浪费memory
+//不如
+    void sortVector(vector<int>& nums) {
+ //   vector<int> sortVector(vector<int> nums) {
+        int n = nums.size();
+        int mid = n/2;
+        /*
+        if (nums.empty() || (n == 1)) {
+            return nums;
+        } else {
+        */
+        
+        if (n <= 1) return;
+        
+        vector<int> a,b;
+        for(int l = 0; l < n/2; l++) {
+            a.push_back(nums[l]);
+        }
+        for(int l = n/2; l < n; l++) {
+            b.push_back(nums[l]);
+        }
+        //a = sortVector(a);
+        //b = sortVector(b);
+        sortVector(a);
+        sortVector(b);
+        
+ //       vector<int> c; //Vector a and b已经keep了nums的信息，此时nums可以洗掉了
+ //       nums.erase(nums.begin(),nums.end());
+        int na = a.size();
+        int nb = b.size();
+        int i = 0;
+        int j = 0;
+//        int m = 0; //记住overwrite到哪里了
+
+// 2 pointer 3种
+// 1个array 同向
+// 1个array 反向-水桶问题
+// 2个array -merge
+
+// 2 pointer 用于merge
+        while((i < na) && (j < nb)){
+            if(a[i] < b[j]) {
+                //c.push_back(a[i]);
+                //nums.push_back(a[i]);
+                //nums[m] = a[i];
+                nums[i+j] = a[i];
+                i++;
+            } else {
+                //c.push_back(b[j]);
+                //nums.push_back(b[j]);
+                //nums[m] = b[j];
+                nums[i+j] = b[j];
+                j++;
+            }
+//            m++;
+        }
+        //if((i == na) && (j <= nb)) {
+ //       if(j <= nb) {
+        if(j < nb) {       
+            for(int k  = j; k < nb; k++) {
+                //c.push_back(b[k]);
+                //nums.push_back(b[k]);
+                nums[i + k] = b[k];
+//                m++;
+            }
+        }// else {
+        //    if ((j == nb) && ( i <= na)) {
+//            if(i <= na) {
+        if(i < na) {
+            for(int k  = i; k < na; k++) {
+                //c.push_back(a[k]);
+                //nums.push_back(a[k]);
+//                nums[m] = a[k];
+                nums[j+k] = a[k];
+//                m++;
+            }
+        }
+//        } //else
+        
+//        nums = c; //只对当前一层覆盖
+        
+        return;
+//        } //else
+    
+            
+    }
+    
+    
+    /*
+    int fac(int n) {
+        if(n == 0) {
+            return 1; //base 递归一定要有base，上来先写base
+        } else {
+            return n*fac(n-1); //延展 向base靠近
+        }
+    }
+    */
+};
