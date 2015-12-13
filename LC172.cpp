@@ -1,4 +1,4 @@
-//LC72
+//LC172
 //Given an integer n, return the number of trailing zeroes in n!.
 //Your solution should be in logarithmic time complexity.
 
