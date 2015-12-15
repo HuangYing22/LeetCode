@@ -1,6 +1,7 @@
-1. '\0' is the null termination character. It marks the end of the string.
+1.'\0' is the null termination character. It marks the end of the string.
+n = str.size(), index n实际上是'\0'
 
-2. index -1是什么意思?
+2.index -1是什么意思?
 eg LC058
 ...
 int n = strlen(s);
@@ -10,6 +11,20 @@ while(s[pos] == ' ') {
 }
 if(pos == -1) return 0;
 ...
+答案写得不好,不要看不该看的index
 
 3.取substring:
 str.substr(index, length);
+
+4.string的常用function
+empty(),(size())length()比size()更好一些
+
+5.string判空:
+s[0] == '\0'
+s == "";
+
+6.str[i]取出来的是char,用''
+eg. str[i] == 'c'
+
+7.string实际上是vector of char
+8.char当数字使用的时候 -'0'
