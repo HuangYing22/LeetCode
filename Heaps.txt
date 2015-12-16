@@ -1,0 +1,31 @@
+1.complete binary tree
+2.parent >= children
+left/right相对大小无所谓
+3.下层可以比上层大,只要不是比它本身直接的parent大
+
+4.每个node都是下层heap的root
+5.heap大小定了形状就定了,可以存在array里
+6.若index从1开始
+left child: 2i right child: 2i+1 parent: i
+若从0开始
+left child: 2i+1 right child: 2i+2 parent: i
+
+7.查最大值: time root O(1)
+
+8.insert heap: time O(logn) worst case
+加在最后一个,如果和parent比,比parent大,就向上换,换到比parent小为止
+
+9.delete heap: time O(logn) worst case
+删掉root: 
+1) swap with last leaf, and delete last leaf
+2) 比较root/left 和left/right child, 如果大小不合适swap, swap到底为止
+
+10.任意一个array变成heap
+1) sort过:O(n)
+2) 没有sort过,一个一个塞进heap: 1+log2+log3+...+logn = log(n!) = O(nlogn)
+平均每一个insert是O(logn)
+
+11.Heapify - time O(n) 平均每一个node是O(1),最坏的可能(1个node root)移动logn-1(层数)次,最好的可能(n/2个node leaf)移动0次
+max/min heap:
+max heap: parent >= children
+min heap: parent <= children
