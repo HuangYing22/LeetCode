@@ -2,6 +2,26 @@
 //Implement a trie with insert, search, and startsWith methods.
 //You may assume that all inputs are consist of lowercase letters a-z.
 
+//另一种方法initialize
+/*
+class TrieNode {
+public:
+    // Initialize your data structure here.
+    TrieNode() {
+        isEnd = false;
+        //child = vector<TrieNode*>(26,NULL); //reserve了26个NULL
+        for(int i=0; i<26; i++) {
+            child[i] = NULL;
+        }
+    }
+    
+    bool isEnd;
+    TrieNode* child[26]; //runtime error
+    //不initialize的话这26个元素不是NULL,爱是啥是啥
+    //vector<TrieNode*> child;
+};
+*/
+
 class TrieNode {
 public:
     // Initialize your data structure here.
