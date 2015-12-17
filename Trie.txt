@@ -1,0 +1,17 @@
+A tree, not binary tree!!!
+(full binary tree = perfect binary tree)
+(complete binary tree: as far left as possible)
+(BST: no duplicate nodes)
+
+Node store associative keys(string) and values
+Root is associated with empty string
+一般没有duplicate
+Descendants have a common prefix
+Children可以是一个vector,里面每一个元素是一个pointer
+如果是数字的话children是10个,如果是字典的话children是26/52个
+
+应用: auto complete
+
+Height: length of the longest key
+Search time complexity: O(n) n=height
+Insert time complexity: O(n) n=height
