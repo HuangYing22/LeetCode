@@ -11,6 +11,19 @@ int len = (maxVal - minVal - 1) / (n - 1) + 1; //求(max - min)/(n - 1)的ceilin
 
 3. int cnt = (maxVal - minVal) / len + 1;
 不 + 1就少了1个桶
+
+4. Another way to calc res gap
+...
+        int prev = 0;
+        
+        for(int i=0; i<cnt; i++) {
+            if(buckets[i].empty()) {
+                continue;
+            }
+            res = max(res, buckets[i][0] - buckets[prev][1]);
+            prev = i;
+        }
+...
 */
 
 //LC164
