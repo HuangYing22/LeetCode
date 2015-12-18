@@ -16,6 +16,8 @@ public:
 
     int sumRange(int i, int j) {
         if((numArray.size() <= i) || (numArray.size() <= j)) return 0;
+        if(i > j) return 0;
+        if(i == j) return numArray[i];
         return sumArray[j] - sumArray[i] + numArray[i];
         
     }
