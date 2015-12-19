@@ -1,0 +1,31 @@
+1.应用: Range Query => to find Min/Sum... in a range
+
+2.其它方法
+1)直接遍历: Time O(mn) m是query的次数, n是数据的个数
+2)建一个matix:
+Time O(n2) to build and maintain matrix, O(1) to find answer
+
+3.Segment Tree
+Construction: recuisive 对半分
+Query:
+1) partial overlap - 查左右 (root range不完全在quiry range里)
+2) total overlap - stop, return value (root range完全在quiry range里)
+3) no overlap - stop, return INT_MAX
+
+Query worst case time cost: 4logn 看了4个方向, n是data的数目
+O(logn)
+
+4.表示方法类似heap, 存在array里
+1) parent: i
+=> left child: 2i+1
+=> right child: 2i+2
+
+2) child: i
+=> parent: (i-1)/2
+
+Construction: space O(n) time O(n)
+worst case space cost: 4n
+segment tree array size: 2n-1
+或者直接用tree做
+length: 4 array length: 4*2-1 = 7
+length: 5 array length: 8*2-1 = 15
