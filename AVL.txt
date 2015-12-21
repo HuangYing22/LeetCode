@@ -1,0 +1,34 @@
+AVL Tree Balancing
+BST with balance condition - height balanced
+Ensures depth of tree is log(n)
+Balance Factor = left subtree(LST) height - right subtree(RST) height, at most differ by 1
+For every node, balance factor is [-1,0,1]
+
+Height info is kept for each node.
+Min num of nodes S(h) (h- height of AVL tree)
+S(h) = S(h-1) + S(h-2) + 1
+If root is removed, height max h-1
+LST and RST height can differ by 1, so one of them height can be h-2
+
+h = 0, S(0) = 1;
+h = 1, S(1) = 2;
+similar to Fibonacci
+
+Height of AVL tree with n nodes is O(log(n))
+For min num of nodes H(LT) = H(RT) + 1 or H(RT) = H(LT) + 1;
+H(LT) != H(RT)
+
+Insertion in AVL Tree
+can cause balacing problem
+|H(LT) - H(RT)| > 1 = 2 (as only one item is inserted)
+
+After insertion, only nodes on the path from inserted node to root will alter.
+Say the node Y is the node violates balancing property.
+
+Violation of node Y has 4 cases:
+Single Rotation
+1) Insert in Left Subtree of Left Child of Y: L-L Single Rotation => Clock-wise "/"
+2) Insert in Right Subtree of Right Child of Y: R-R Single Rotation => Counter-clock-wise "\"
+Double Rotation
+3) Insert in Right Subtree of Left Child of Y: L(Child of Y)-R(Subtree) Double Rotation => "<" to "/\"
+4) Insert in Left Subtree of Right Child of Y: R-L Double Rotation => ">" to "/\"
