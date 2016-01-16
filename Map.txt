@@ -3,6 +3,8 @@ Map里不可以有duplicate keys.
 如果assign重了,最后一次是valid的.
 
 #include<map>
+#include<utility> utility在map里,但是可以重复include
+pair要include utility才能用
 
 std::map<key_type, value_type> map;
 key_type eg. std::string
@@ -21,6 +23,7 @@ for(std::map<int, std::string>::iterator it = map.begin(); it != map.end(); it +
 map.size() //取map的size,即有多少个key-value pairs
 map.clear() //清空map, 使map.size() = 0, 使map.empty() = 1
 
+insert的时候自动按照key sort
 map.insert(std::pair<std::string, int>("test", 1)); //先key后value
 map.insert(std::make_pair("test", 1));
 map.insert用pair时必须先指定key_type, value_type
@@ -42,3 +45,55 @@ map.find()只能找key, 不能找value!!!
 
 map.empty() //true if map is empty
 
+3. Unordered Containers
+unordered map/set
+unordered multi-map/multi-set
+
+Implementation
+Hash function - 类似分类, 有一个固定的规则
+效率高的时候 
+find是constant time O(1), 但是这个constant可能很大, 不像array[index]这么constant快
+insert也是constant time
+
+iterator it = set.find("green")
+it != set.end(); //必须要check, 否则*it会有undefined behavior
+
+vector<string> vec = {"abc", "def"};
+set.insert(vec.begin(), vec.end()); //从头到尾都insert
+
+set.load_factor() //平均一个桶里有几个
+set.bucket(x)
+set.bucket_count()
+
+Hash collision: degrade performance
+worst case: all element in the same bucket O(n)
+
+Associative container(map/set) takes O(log(n))
+Sorted map/set实现方式类似AVL,实际上是红黑树 insert/find/remove都是O(log(n))
+Multi-map/set实现方式也类似AVL,实际上是红黑树 data多一个counter, map是vector
+AVL best case log2(n), worst case 1.44xlog2(n)
+红黑树最差是AVL的2x深度
+用log(n)的recolor来代替log(n)的rotation, recolor比rotation快很多
+log(n)的recolor + constant rotation
+
+Unordered set/multiset: element value cannot be changed. 可以删了再insert, 不能直接改
+Unordered map/multimap: element key cannot be changed.
+
+No associative array,只能用map和unordered map实现
+
+unordered_map
+const不能改
+const i = 5;必须在声明的时候赋值,不然以后都不能改了
+只作用在{}内
+function的parameter指明是const就不会被改了
+
+m['s'] 用m[]的时候默认是insert
+如果's'存在则更改
+如果's'不存在就insert一个""
+compile的时候认为有修改的risk 不能通过
+map iterator *itr自动就是itr -> second
+
+Search time:
+unordered_map O(1), may degrade to O(n)
+map O(log(n)) guaranteed O(log(n))
+cannot use multimap and unordered_multimap, they don't have [] operator
