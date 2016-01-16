@@ -1,0 +1,30 @@
+1.
+Set is an associative container.
+Only stores key.
+One key only appears once.
+
+#include <set>
+
+//create set
+set<string> words; //data_type是string
+string word = "";
+cin >> word;
+words.insert(word); //insert的时候自动按照字母顺序排序
+
+set<string>::iterator it = words.begin(); //iterator
+cout << *it << endl; //*it 取iterator的内容
+
+2.
+Multi-Set/Multi-Map 很不常用
+Multi-Map可以把value设为vector
+Multi-Set可以data为map,后面一个是counter,记录个数
+
+Can contain duplicate keys
+
+#include <map>
+#include <utility> //map含有utility,有utility才能用pair
+
+multimap<string,string> numbers;
+numbers.insert(pair<string,string>("Jones", "123")); //insert的时候自动sort
+multimap<string,string>::iterator it = numbers.find(searchName); //指向第一个
+multimap<string,string>::iterator last = numbers.upper_bound(searchName); //指向最后一个的下一个, 如果没有了,是一个结束标志
