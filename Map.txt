@@ -1,0 +1,44 @@
+Maps are associative containers.
+Map里不可以有duplicate keys.
+如果assign重了,最后一次是valid的.
+
+#include<map>
+
+std::map<key_type, value_type> map;
+key_type eg. std::string
+
+//add to map
+//"Test" is an identifier/key
+//2 is a value
+map["Test"] = 2;
+cout << map["Test"] << endl;
+
+for(std::map<int, std::string>::iterator it = map.begin(); it != map.end(); it ++) { //iterator is a pointer!!!
+  it -> first ... //key
+  it -> second ...//value
+}
+
+map.size() //取map的size,即有多少个key-value pairs
+map.clear() //清空map, 使map.size() = 0, 使map.empty() = 1
+
+map.insert(std::pair<std::string, int>("test", 1)); //先key后value
+map.insert(std::make_pair("test", 1));
+map.insert用pair时必须先指定key_type, value_type
+
+std::pair<int,int> test;
+test.first = 10;
+test.second = 20;
+
+std::make_pair(10,20);
+
+std::pair<int, int> position(10, 20);
+position.first ...
+position.second ...
+
+std::map<int, std::string>::iterator it = map.find(5); //找key是5的pointer
+cout << it->second << endl;
+map.erase(it);
+map.find()只能找key, 不能找value!!!
+
+map.empty() //true if map is empty
+
