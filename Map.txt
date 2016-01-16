@@ -93,7 +93,11 @@ m['s'] 用m[]的时候默认是insert
 compile的时候认为有修改的risk 不能通过
 map iterator *itr自动就是itr -> second
 
-Search time:
+Search key time:
 unordered_map O(1), may degrade to O(n)
 map O(log(n)) guaranteed O(log(n))
 cannot use multimap and unordered_multimap, they don't have [] operator
+
+Search value time
+map O(n)
+unordered_map O(n)
