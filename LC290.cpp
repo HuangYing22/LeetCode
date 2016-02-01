@@ -32,13 +32,16 @@ public:
             unordered_map<string, char>::iterator it2 = map2.find (word);
             if(it1 == map1.end()) {
                 map1.insert(pair<char, string>(pattern[i], word));
-            }
-            if(it2 == map2.end()) {
-                map2.insert(pair<string, char>(word,pattern[i]));
+            } else if(it1 -> second != word) {
+                return false;
             }
             
-            if(it1 != map1.end() && it1 -> second != word) return false;
-            if(it2 != map2.end() && it2 -> second != pattern[i]) return false;
+            if(it2 == map2.end()) {
+                map2.insert(pair<string, char>(word,pattern[i]));
+            } else if(it2 -> second != pattern[i]) {
+                return false;
+            }
+
         }
         
         if(space != -1) return false;
