@@ -17,7 +17,7 @@ public:
         string res;
         
         int len = res_prev.length();
-        int num = res_prev[0];
+        char num = res_prev[0];
         int count = 1;
         
         for(int i = 1; i < len; i ++) {
