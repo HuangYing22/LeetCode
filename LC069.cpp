@@ -52,3 +52,10 @@ public:
         return (int)mid;
     }
 };
+
+/* Alternatively
+while(begin < end) {
+... ...
+}
+return (int) begin;
+*/
