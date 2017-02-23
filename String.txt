@@ -28,3 +28,9 @@ eg. str[i] == 'c'
 
 7.string实际上是vector of char
 8.char当数字使用的时候 -'0'
+int to char +'0'
+
+9.string从尾巴上加东西：
+   加string: + concatenate
+   加char: str.push_back()
+   加int: str.push_back(num + '0') 或者 to_string(一大串数)
