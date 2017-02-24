@@ -28,3 +28,12 @@ multimap<string,string> numbers;
 numbers.insert(pair<string,string>("Jones", "123")); //insert的时候自动sort
 multimap<string,string>::iterator it = numbers.find(searchName); //指向第一个
 multimap<string,string>::iterator last = numbers.upper_bound(searchName); //指向最后一个的下一个, 如果没有了,是一个结束标志
+
+3.
+set: 实际上是红黑树, search/+/- O(logn)
+  order 一般是大小，也可以自己定义一个comparator
+  用于找第一个或者需要按照大小遍历的情况
+  比较少用到
+unordered_set: 实际上是hash, search/+/- O(1)
+  只是search的话速度更快
+  比较常用
