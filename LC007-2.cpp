@@ -1,3 +1,8 @@
+// No need to separate cases for positive and negative numbers
+// -123 % 10 = -3
+// -123 / 10 = -12
+// "-" can be covered by res *= 10; res += lx % 10; lx /= 10;
+
 // int range: -2,147,483,648 to 2,147,483,647
 class Solution {
 public:
