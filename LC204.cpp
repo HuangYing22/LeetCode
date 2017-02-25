@@ -54,7 +54,7 @@ public:
         isPrime[1] = false;
         int res = 0;
         
-        for(int i = 2; i <n; i ++) {
+        for(int i = 2; i < n; i ++) {
             if(!isPrime[i]) continue;
             for(int j = i * 2; j < n; j += i) {
                 isPrime[j] = false;
