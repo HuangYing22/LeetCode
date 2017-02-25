@@ -18,9 +18,9 @@ private:
         string res = "";
         
         for(int i = 0; i < n; i ++) {
-            if((s[i] >= 'A') & (s[i] <= 'Z')) {
+            if((s[i] >= 'A') && (s[i] <= 'Z')) {
                 res.push_back(s[i] + 32);
-            } else if(((s[i] >= 'a') & (s[i] <= 'z')) || ((s[i] >= '0') & (s[i] <= '9'))  ) {
+            } else if(((s[i] >= 'a') && (s[i] <= 'z')) || ((s[i] >= '0') && (s[i] <= '9'))  ) {
                 res.push_back(s[i]);
             } else continue;
         }
